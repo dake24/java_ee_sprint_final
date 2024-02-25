@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="javax.servlet-api-4.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/library/javax.servlet-api-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/library/javax.servlet.jsp-api-2.3.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
