@@ -1,3 +1,5 @@
+<%@ page import="kz.example.practiceJavaEE.model.NewsCategory" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -20,18 +22,22 @@
                     <%
                         }
                     %>
-                    <form action="/add" method="post">
+                    <form action="/news/add" method="post">
+                        <div class="form-group">
+                            <label>Category : </label>
+                            <select name="newsCategory" class="form-select" aria-label="Default select example">
+                                <% for (NewsCategory nc : (List<NewsCategory>) request.getAttribute("newsCategories")) {%>
+                                <option value="<%=nc.getId()%>"><%=nc.getName()%></option>
+                                <%}%>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label>Наименование : </label>
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Описание : </label>
-                            <input type="text" name="description" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Крайний срок : </label>
-                            <input type="date" name="deadlineDate" class="form-control">
+                            <input type="text" name="content" class="form-control">
                         </div>
                         <div class="form-group">
                             <button class="btn btn-success">Добавить</button>

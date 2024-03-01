@@ -1,4 +1,6 @@
-<%@ page import="kz.example.practiceJavaEE.model.Tasks" %>
+<%@ page import="kz.example.practiceJavaEE.model.News" %>
+<%@ page import="kz.example.practiceJavaEE.model.NewsCategory" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -12,8 +14,8 @@
                 <div class="col-sm-12">
                     <div class="p-5 mb-4 bg-light rounded-3">
                         <%
-                            Tasks task = (Tasks) request.getAttribute("task");
-                            if(task != null){
+                            News news = (News) request.getAttribute("news");
+                            if(news != null){
                                 String success = request.getParameter("success");
                                 if(success != null){
                         %>
@@ -33,26 +35,25 @@
                             <%
                                 }
                             %>
-                            <form action="/details" method="post">
-                                <input type="hidden" name="id" value="<%=task.getId()%>">
+                            <form action="/news/edit" method="post">
+                                <input type="hidden" name="id" value="<%=news.getId()%>">
+                                <div class="form-group">
+                                    <label>Category : </label>
+                                    <select name="newsCategory" class="form-select" aria-label="Default select example">
+                                        <% for (NewsCategory nc : (List<NewsCategory>) request.getAttribute("newsCategories")) {%>
+                                        <option value="<%=nc.getId()%>" selected="<%=nc.getId() == news.getCategory().getId()%>">
+                                            <%=nc.getName()%>
+                                        </option>
+                                        <%}%>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Наименование : </label>
-                                    <input type="text" name="name" class="form-control" value="<%=task.getName()%>">
+                                    <input type="text" name="name" class="form-control" value="<%=news.getId()%>">
                                 </div>
                                 <div class="form-group">
-                                    <label>Описание : </label>
-                                    <input type="text" name="description" class="form-control" value="<%=task.getDescription()%>">
-                                </div>
-                                <div class="form-group">
-                                    <label>Крайний срок: </label>
-                                    <input type="date" name="deadlineDate" class="form-control" value="<%= task.getDeadlineDate() %>">
-                                </div>
-                                <div class="form-group">
-                                    <label>Выполнен: </label>
-                                    <select name="isDone" class="form-control">
-                                        <option value="true" <%= task.getIsDone() ? "selected" : "" %>>Да</option>
-                                        <option value="false" <%= !task.getIsDone() ? "selected" : "" %>>Нет</option>
-                                    </select>
+                                    <label>Content : </label>
+                                    <input type="text" name="content" class="form-control" value="<%=news.getContent()%>">
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-success">SAVE ITEM</button>
@@ -65,8 +66,8 @@
                             <div class="modal fade" id="deletePhoneModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="/delete" method="post">
-                                            <input type="hidden" name="id" value="<%=task.getId()%>">
+                                        <form action="/news/delete" method="post">
+                                            <input type="hidden" name="id" value="<%=news.getId()%>">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="staticBackdropLabel">Confirm Delete Process</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

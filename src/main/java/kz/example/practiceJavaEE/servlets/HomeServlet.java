@@ -11,8 +11,13 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("tasks", DBManager.getAllTasks());
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("loggedInUser") != null) {
+            request.setAttribute("allNews", DBManager.getAllNews());
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("/practiceJavaEE_war/login");
+        }
     }
 
     @Override
